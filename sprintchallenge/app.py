@@ -3,13 +3,14 @@ from .aq_dashboard import show_city_pm25, query_aqi_level
 from flask_sqlalchemy import SQLAlchemy
 from .models import Record, DB
 import requests
+import os
 
 cities = ['Los Angeles'] #, 'New York', 'Shanghai']
 
 def create_app():
     """Create and configure an instance of the Flask Application"""
     APP = Flask(__name__)
-    APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+    APP.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
     DB = SQLAlchemy(APP)
     DB.init_app(APP)
 
